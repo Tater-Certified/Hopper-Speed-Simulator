@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "hopperspeedsim",
+  "version": "${version}",
+  "name": "Hopper Speed Simulator",
+  "description": "Make hoppers go fast!",
+  "authors": [
+    "QPCrummer"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/hopperspeedsim/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+    ],
+    "main": [
+      "io.github.qpcrummer.hopperspeedsimulator.Main"
+    ]
+  },
+  "mixins": [
+    "hopperspeedsimulator.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.8",
+    "fabric": "*",
+    "minecraft": "1.19.x"
+  }
+}
