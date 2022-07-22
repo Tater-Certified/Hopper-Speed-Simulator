@@ -16,6 +16,8 @@ public class Main implements ModInitializer {
     public static String cfgver;
     public static int ticks;
     public static int items;
+    public static boolean unsafe;
+    public static boolean first = true;
 
     public static Properties properties = new Properties();
 
@@ -36,7 +38,7 @@ public class Main implements ModInitializer {
         } else {
             loadcfg();
             cfgver = properties.getProperty("config-version");
-            if (!(Objects.equals(cfgver, "1.1"))) {
+            if (!(Objects.equals(cfgver, "1.2"))) {
                 mkfile();
                 System.out.println("Updating Hopper Speed Simulator config");
             } else {
@@ -48,13 +50,16 @@ public class Main implements ModInitializer {
     public void mkfile() {
         try (OutputStream output = Files.newOutputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
             if (!properties.contains("config-version")) {
-                properties.setProperty("config-version", "1.1");
+                properties.setProperty("config-version", "1.2");
             }
             if (!properties.contains("ticks-per-transfer")) {
                 properties.setProperty("ticks-per-transfer", "8");
             }
             if (!properties.contains("items-per-transfer")) {
                 properties.setProperty("items-per-transfer", "1");
+            }
+            if (!properties.contains("unsafe-speed")) {
+                properties.setProperty("unsafe-speed", "false");
             }
             properties.store(output, null);
         } catch (IOException e) {
@@ -75,5 +80,6 @@ public class Main implements ModInitializer {
         cfgver = properties.getProperty("config-version");
         ticks = Integer.parseInt(properties.getProperty("ticks-per-transfer"));
         items = Integer.parseInt(properties.getProperty("items-per-transfer"));
+        unsafe = Boolean.parseBoolean(properties.getProperty("unsafe-speed"));
     }
 }
