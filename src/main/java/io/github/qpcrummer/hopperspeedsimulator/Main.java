@@ -15,6 +15,7 @@ public class Main implements ModInitializer {
 
     public static String cfgver;
     public static int ticks;
+    public static int items;
 
     public static Properties properties = new Properties();
 
@@ -30,25 +31,13 @@ public class Main implements ModInitializer {
         var path = FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties");
 
         if (Files.notExists(path)) {
-            try {
-                mkfile();
-                System.out.println("Creating Hopper Speed Simulator config");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            mkfile();
+            System.out.println("Creating Hopper Speed Simulator config");
         } else {
-            try {
-                loadcfg();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            loadcfg();
             cfgver = properties.getProperty("config-version");
-            if (!(Objects.equals(cfgver, "1.0"))) {
-                try {
-                    mkfile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            if (!(Objects.equals(cfgver, "1.1"))) {
+                mkfile();
                 System.out.println("Updating Hopper Speed Simulator config");
             } else {
                 parse();
@@ -56,21 +45,35 @@ public class Main implements ModInitializer {
         }
     }
 
-    public void mkfile() throws IOException {
-        OutputStream output = new FileOutputStream(String.valueOf(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties")));
-        if (!properties.contains("config-version")) {properties.setProperty("config-version", "1.0");}
-        if (!properties.contains("ticks-per-transfer")) {properties.setProperty("ticks-per-transfer", "8");}
-        properties.store(output, null);
+    public void mkfile() {
+        try (OutputStream output = Files.newOutputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
+            if (!properties.contains("config-version")) {
+                properties.setProperty("config-version", "1.1");
+            }
+            if (!properties.contains("ticks-per-transfer")) {
+                properties.setProperty("ticks-per-transfer", "8");
+            }
+            if (!properties.contains("items-per-transfer")) {
+                properties.setProperty("items-per-transfer", "1");
+            }
+            properties.store(output, null);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         parse();
     }
 
-    public static void loadcfg() throws IOException {
-        InputStream input = new FileInputStream(String.valueOf(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties")));
-        properties.load(input);
+    public static void loadcfg() {
+        try (InputStream input = Files.newInputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
+            properties.load(input);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void parse() {
         cfgver = properties.getProperty("config-version");
         ticks = Integer.parseInt(properties.getProperty("ticks-per-transfer"));
+        items = Integer.parseInt(properties.getProperty("items-per-transfer"));
     }
 }
