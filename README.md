@@ -11,3 +11,5 @@ Commands:
 /hopperspeed items-per-transfer - sets the number of items per transfer attempt
 ```
 Compatible with Lithium, Carpet-Fixes and FabricAutoCrafter
+
+![](example_images/fasthopper.gif)

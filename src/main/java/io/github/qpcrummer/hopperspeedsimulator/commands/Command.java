@@ -21,7 +21,7 @@ public class Command {
     public static void registerCommand() throws FileNotFoundException {
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated, environment) -> dispatcher.register(CommandManager.literal("hopperspeed")
                         .executes(context -> {
-                            context.getSource().sendFeedback(Text.of("Current speed is "+ ticks +" ticks per transfer"), true);
+                            context.getSource().sendFeedback(Text.of("Current speed is "+ ticks +" ticks, with "+ items +" items per transfer"), true);
                             return 1;
                         })
 
