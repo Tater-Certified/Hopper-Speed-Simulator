@@ -1,11 +1,12 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
+    id 'fabric-loom' version '1.0-SNAPSHOT'
 }
 
 version = project.mod_version
 group = project.maven_group
 
 repositories {
+
 }
 
 dependencies {
@@ -16,6 +17,7 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
 }
 
 processResources {

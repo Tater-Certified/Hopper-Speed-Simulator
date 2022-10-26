@@ -1,6 +1,5 @@
 package io.github.qpcrummer.hopperspeedsimulator.commands;
 
-import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
@@ -63,17 +62,6 @@ public class Command {
                             context.getSource().sendFeedback(Text.of("Hoppers will now move " + items + " items per transfer"), true);
                     return 1;
                 }
-                )))
-
-                .then(literal("dangerously-fast").then(argument("dangerously-fast", BoolArgumentType.bool()).executes(context -> {
-                    properties.setProperty("unsafe-speed", String.valueOf(BoolArgumentType.getBool(context, "dangerously-fast")));
-                    try (OutputStream output = Files.newOutputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
-                        properties.store(output, null);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    unsafe = Boolean.parseBoolean(properties.getProperty("unsafe-speed"));
-                    return 1;
-                })))));
+                )))));
     }
 }
