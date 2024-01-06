@@ -30,7 +30,7 @@ public class Command {
                     try (OutputStream output = Files.newOutputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
                         properties.store(output, null);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        LOGGER.warn("Failed to save ticks-per-item configuration", e);
                     }
                     ticks = Integer.parseInt(properties.getProperty("ticks-per-transfer"));
                     context.getSource().sendFeedback(() -> Text.of("Hoppers will now transfer items every "+ ticks +" ticks"), true);
@@ -43,7 +43,7 @@ public class Command {
                     try (OutputStream output = Files.newOutputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
                         properties.store(output, null);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        LOGGER.warn("Failed to save items-per-transfer configuration", e);
                     }
                     ticks = Integer.parseInt(properties.getProperty("ticks-per-transfer"));
                     items = Integer.parseInt(properties.getProperty("items-per-transfer"));
@@ -56,7 +56,7 @@ public class Command {
                             try (OutputStream output = Files.newOutputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
                                 properties.store(output, null);
                             } catch (IOException e) {
-                                e.printStackTrace();
+                                LOGGER.warn("Failed to save items-per-transfer configuration", e);
                             }
                             items = Integer.parseInt(properties.getProperty("items-per-transfer"));
                             context.getSource().sendFeedback(() -> Text.of("Hoppers will now move " + items + " items per transfer"), true);

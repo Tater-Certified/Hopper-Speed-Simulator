@@ -1,12 +1,16 @@
 plugins {
-    id 'fabric-loom' version '1.3-SNAPSHOT'
+    id 'fabric-loom' version '1.4-SNAPSHOT'
 }
 
 version = project.mod_version
 group = project.maven_group
 
 repositories {
-
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+    maven { url = "https://jitpack.io" }
 }
 
 dependencies {
@@ -18,6 +22,9 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+    // Lithium compat
+    modImplementation "maven.modrinth:lithium:mc1.20.4-0.12.1"
+    include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.1.1")))
 }
 
 processResources {
@@ -27,6 +34,10 @@ processResources {
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/hopperspeedsimulator.accesswidener")
 }
 
 def targetJavaVersion = 17

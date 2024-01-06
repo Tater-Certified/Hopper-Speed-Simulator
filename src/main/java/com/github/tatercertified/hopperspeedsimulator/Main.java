@@ -3,6 +3,8 @@ package com.github.tatercertified.hopperspeedsimulator;
 import com.github.tatercertified.hopperspeedsimulator.commands.Command;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -11,12 +13,12 @@ import java.util.Properties;
 
 
 public class Main implements ModInitializer {
-
-    public static String cfgver;
     public static int ticks;
     public static int items;
 
-    public static Properties properties = new Properties();
+    private final String configVer = "1.3";
+    public static final Properties properties = new Properties();
+    public static final Logger LOGGER = LoggerFactory.getLogger("Hopper Speed Sim");
 
     @Override
     public void onInitialize() {
@@ -24,20 +26,19 @@ public class Main implements ModInitializer {
         try {
             Command.registerCommand();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.warn("Failed to load commands", e);
         }
 
         var path = FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties");
 
         if (Files.notExists(path)) {
             mkfile();
-            System.out.println("Creating Hopper Speed Simulator config");
+            LOGGER.info("Creating Hopper Speed Simulator config");
         } else {
             loadcfg();
-            cfgver = properties.getProperty("config-version");
-            if (!(Objects.equals(cfgver, "1.3"))) {
+            if (!(Objects.equals(properties.getProperty("config-version"), configVer))) {
                 mkfile();
-                System.out.println("Updating Hopper Speed Simulator config");
+                LOGGER.info("Updating Hopper Speed Simulator config");
             } else {
                 parse();
             }
@@ -47,7 +48,7 @@ public class Main implements ModInitializer {
     public void mkfile() {
         try (OutputStream output = Files.newOutputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
             if (!properties.contains("config-version")) {
-                properties.setProperty("config-version", "1.2");
+                properties.setProperty("config-version", configVer);
             }
             if (!properties.contains("ticks-per-transfer")) {
                 properties.setProperty("ticks-per-transfer", "8");
@@ -57,6 +58,7 @@ public class Main implements ModInitializer {
             }
             properties.store(output, null);
         } catch (IOException e) {
+            LOGGER.warn("Failed to create config");
             throw new RuntimeException(e);
         }
         parse();
@@ -66,12 +68,12 @@ public class Main implements ModInitializer {
         try (InputStream input = Files.newInputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
             properties.load(input);
         } catch (IOException e) {
+            LOGGER.warn("Failed to load config");
             throw new RuntimeException(e);
         }
     }
 
     public void parse() {
-        cfgver = properties.getProperty("config-version");
         ticks = Integer.parseInt(properties.getProperty("ticks-per-transfer"));
         items = Integer.parseInt(properties.getProperty("items-per-transfer"));
     }

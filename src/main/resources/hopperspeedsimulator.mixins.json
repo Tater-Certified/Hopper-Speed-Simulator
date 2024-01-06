@@ -4,7 +4,10 @@
   "package": "com.github.tatercertified.hopperspeedsimulator.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "HopperMixin"
+    "HopperMixin",
+    "LithiumHopperCompatMixin",
+    "LithiumHopperHelperMixin",
+    "LithiumSleepingCompatMixin"
   ],
   "client": [
   ],

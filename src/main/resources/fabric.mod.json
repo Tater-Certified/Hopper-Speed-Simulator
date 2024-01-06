@@ -21,6 +21,7 @@
   "mixins": [
     "hopperspeedsimulator.mixins.json"
   ],
+  "accessWidener": "hopperspeedsimulator.accesswidener",
   "depends": {
     "fabricloader": ">=0.14.8",
     "fabric": "*",
