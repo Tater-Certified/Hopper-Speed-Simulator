@@ -1,5 +1,5 @@
 # Hopper-Speed-Simulator
-*Who needs a real item transport system?*
+*Storage tech is my passion*
 
 This mod allows you to easily change the speed of hoppers with the simple command /hopperspeed
 
@@ -10,8 +10,8 @@ Commands:
 /hopperspeed ticks-per-transfer - sets the transfer delay to the specified number of ticks
 /hopperspeed items-per-transfer - sets the number of items per transfer attempt
 ```
-Compatible with Lithium*, Carpet-Fixes and FabricAutoCrafter
+Compatible with Lithium, FabricAutoCrafter, and many other mods
 
-* As of Lithium 0.9.0+ you must put this into the lithium config: mixin.block.hopper=false
+This mod is *not* compatible with mods that add hoppers with their own item moving logic
 
 ![](example_images/fasthopper.gif)
