@@ -1,6 +1,0 @@
-accessWidener v1 named
-
-accessible field me/jellysquid/mods/lithium/mixin/block/hopper/HopperBlockEntityMixin extractInventory Lme/jellysquid/mods/lithium/api/inventory/LithiumInventory;
-accessible field me/jellysquid/mods/lithium/mixin/block/hopper/HopperBlockEntityMixin extractStackList Lme/jellysquid/mods/lithium/common/hopper/LithiumStackList;
-accessible field me/jellysquid/mods/lithium/mixin/block/hopper/HopperBlockEntityMixin myModCountAtLastExtract J
-accessible field me/jellysquid/mods/lithium/mixin/block/hopper/HopperBlockEntityMixin extractStackListModCount J

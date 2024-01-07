@@ -21,15 +21,9 @@
   "mixins": [
     "hopperspeedsimulator.mixins.json"
   ],
-  "accessWidener": "hopperspeedsimulator.accesswidener",
   "depends": {
     "fabricloader": ">=0.14.8",
     "fabric": "*",
     "minecraft": "1.20.x"
-  },
-  "custom": {
-    "lithium:options": {
-      "block.hopper": false
-    }
   }
 }
