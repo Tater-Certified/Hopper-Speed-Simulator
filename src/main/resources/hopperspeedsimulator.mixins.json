@@ -3,10 +3,10 @@
   "minVersion": "0.8",
   "package": "com.github.tatercertified.hopperspeedsimulator.mixins",
   "compatibilityLevel": "JAVA_17",
+  "plugin": "com.github.tatercertified.hopperspeedsimulator.compat.MixinConfig",
   "mixins": [
     "HopperMixin",
     "LithiumHopperCompatMixin",
-    "LithiumHopperHelperMixin",
     "LithiumSleepingCompatMixin"
   ],
   "client": [

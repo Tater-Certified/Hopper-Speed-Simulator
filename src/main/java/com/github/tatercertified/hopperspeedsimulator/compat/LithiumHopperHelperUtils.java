@@ -6,8 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
-
 public final class LithiumHopperHelperUtils {
     public static boolean tryMoveMultipleItems(Inventory to, ItemStack stack, @Nullable Direction fromDirection, int numberOfItems) {
         SidedInventory toSided = to instanceof SidedInventory ? (SidedInventory)to : null;
@@ -43,7 +41,7 @@ public final class LithiumHopperHelperUtils {
             }
 
             int toCount;
-            if (toStack.isOf(transferStack.getItem()) && toStack.getMaxCount() > (toCount = toStack.getCount()) && to.getMaxCountPerStack() > toCount && areNbtEqual(toStack, transferStack)) {
+            if (toStack.isOf(transferStack.getItem()) && toStack.getMaxCount() > (toCount = toStack.getCount()) && to.getMaxCountPerStack() > toCount && ItemStack.areItemsAndComponentsEqual(toStack, transferStack)) {
                 transferStack.decrement(numberOfItems);
                 toStack.increment(numberOfItems);
                 return true;
@@ -51,12 +49,5 @@ public final class LithiumHopperHelperUtils {
         }
 
         return false;
-    }
-
-    /**
-     * From Lithium
-     */
-    private static boolean areNbtEqual(ItemStack stack1, ItemStack stack2) {
-        return Objects.equals(stack1.getNbt(), stack2.getNbt());
     }
 }
