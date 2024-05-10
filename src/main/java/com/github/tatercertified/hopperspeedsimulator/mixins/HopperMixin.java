@@ -26,7 +26,7 @@ public abstract class HopperMixin {
         return Main.items;
     }
 
-    @ModifyArg(method = "insert", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;removeStack(II)Lnet/minecraft/item/ItemStack;"), index = 1)
+    @ModifyArg(method = "insert", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/HopperBlockEntity;removeStack(II)Lnet/minecraft/item/ItemStack;"), index = 1)
     private static int inject3(int x) {
         return Main.items;
     }
