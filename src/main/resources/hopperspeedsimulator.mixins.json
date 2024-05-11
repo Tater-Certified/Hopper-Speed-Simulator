@@ -7,7 +7,8 @@
   "mixins": [
     "HopperMixin",
     "LithiumHopperCompatMixin",
-    "LithiumSleepingCompatMixin"
+    "LithiumSleepingCompatMixin",
+    "OmnihopperBehaviorMixin"
   ],
   "client": [
   ],
