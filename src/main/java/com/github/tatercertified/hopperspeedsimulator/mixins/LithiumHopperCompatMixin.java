@@ -16,8 +16,7 @@ public abstract class LithiumHopperCompatMixin {
     private static int transferAmount;
     @TargetHandler(
             mixin = "me.jellysquid.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
-            name = "lithiumExtract",
-            prefix = "handler"
+            name = "lithiumExtract"
     )
     @ModifyArg(
             method = "@MixinSquared:Handler",
@@ -31,8 +30,7 @@ public abstract class LithiumHopperCompatMixin {
 
     @TargetHandler(
             mixin = "me.jellysquid.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
-            name = "lithiumExtract",
-            prefix = "handler"
+            name = "lithiumExtract"
     )
     @ModifyArg(
             method = "@MixinSquared:Handler",
@@ -46,8 +44,7 @@ public abstract class LithiumHopperCompatMixin {
 
     @TargetHandler(
             mixin = "me.jellysquid.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
-            name = "lithiumExtract",
-            prefix = "handler"
+            name = "lithiumExtract"
     )
     @Redirect(
             method = "@MixinSquared:Handler",

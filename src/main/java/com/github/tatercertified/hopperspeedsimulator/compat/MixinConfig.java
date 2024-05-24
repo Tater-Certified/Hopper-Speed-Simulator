@@ -11,12 +11,17 @@ import java.util.Set;
 
 public class MixinConfig implements IMixinConfigPlugin {
     private boolean lithiumPresent = false;
+    private boolean omnihopperPresent = false;
 
     @Override
     public void onLoad(String mixinPackage) {
         this.lithiumPresent = FabricLoader.getInstance().isModLoaded("lithium");
+        this.omnihopperPresent = FabricLoader.getInstance().isModLoaded("omnihopper");
         if (this.lithiumPresent) {
             Main.LOGGER.info("Lithium has been detected, deploying Mixins to save ourselves");
+        }
+        if (this.omnihopperPresent) {
+            Main.LOGGER.info("Omnihopper has been detected, deploying Mixins to save ourselves");
         }
     }
 
@@ -28,7 +33,10 @@ public class MixinConfig implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (mixinClassName.contains("Lithium")) {
-            return lithiumPresent;
+            return lithiumPresent && !omnihopperPresent;
+        }
+        if (mixinClassName.contains("Omnihopper")) {
+            return omnihopperPresent;
         }
         return true;
     }
