@@ -1,11 +1,13 @@
 package com.github.tatercertified.hopperspeedsimulator.mixins;
 
 import com.github.tatercertified.hopperspeedsimulator.Main;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import net.minecraft.block.BlockState;
 import nl.enjarai.omnihopper.blocks.entity.hopper.behaviour.HopperBehaviour;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
+@IfModLoaded(value = "omnihopper")
 @Mixin(value = HopperBehaviour.class, remap = false)
 public class OmnihopperBehaviorMixin {
     /**

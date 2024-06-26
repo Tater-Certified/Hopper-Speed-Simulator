@@ -4,6 +4,8 @@ import com.bawnorton.mixinsquared.TargetHandler;
 import com.github.tatercertified.hopperspeedsimulator.Main;
 import com.github.tatercertified.hopperspeedsimulator.compat.LithiumHopperHelperUtils;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.moulberry.mixinconstraints.annotations.IfModAbsent;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -11,6 +13,8 @@ import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 
+@IfModLoaded(value = "lithium")
+@IfModAbsent(value = "omnihopper")
 @Mixin(value = HopperBlockEntity.class, priority = 1500)
 public abstract class LithiumHopperCompatMixin {
     private static int transferAmount;

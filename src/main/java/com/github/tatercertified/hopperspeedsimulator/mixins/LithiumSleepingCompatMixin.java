@@ -2,11 +2,15 @@ package com.github.tatercertified.hopperspeedsimulator.mixins;
 
 import com.bawnorton.mixinsquared.TargetHandler;
 import com.github.tatercertified.hopperspeedsimulator.Main;
+import com.moulberry.mixinconstraints.annotations.IfModAbsent;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import net.minecraft.block.entity.HopperBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
+@IfModLoaded(value = "lithium")
+@IfModAbsent(value = "omnihopper")
 @Mixin(value = HopperBlockEntity.class, priority = 1500, remap = false)
 public abstract class LithiumSleepingCompatMixin {
     @TargetHandler(
