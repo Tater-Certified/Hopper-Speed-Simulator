@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import static com.github.tatercertified.hopperspeedsimulator.Main.items;
 import static com.github.tatercertified.hopperspeedsimulator.Main.ticks;
 
 @Mixin(HopperBlockEntity.class)

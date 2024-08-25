@@ -11,6 +11,7 @@ repositories {
         url = "https://api.modrinth.com/maven"
     }
     maven { url = "https://jitpack.io" }
+    maven { url = "https://maven.bawnorton.com/releases" }
 }
 
 dependencies {
@@ -23,9 +24,9 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Lithium compat
-    modImplementation "maven.modrinth:lithium:mc1.21-0.12.7"
-    modCompileOnlyApi "maven.modrinth:omnihopper:2.2.4+1.20.5"
-    include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.2.0-beta.3")))
+    modImplementation "maven.modrinth:lithium:mc1.21.1-0.13.0"
+    modCompileOnlyApi "maven.modrinth:omnihopper:2.3.2+1.21"
+    include(implementation(annotationProcessor("com.bawnorton.mixinsquared:mixinsquared-fabric:0.2.0-beta.6")))
     include(implementation("com.moulberry:mixinconstraints:1.0.1"))
 }
 
