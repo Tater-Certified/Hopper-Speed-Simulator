@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(value = HopperBlockEntity.class, priority = 1500, remap = false)
 public abstract class LithiumSleepingCompatMixin {
     @TargetHandler(
-            mixin = "me.jellysquid.mods.lithium.mixin.world.block_entity_ticking.sleeping.hopper.HopperBlockEntityMixin",
+            mixin = "net.caffeinemc.mods.lithium.mixin.world.block_entity_ticking.sleeping.hopper.HopperBlockEntityMixin",
             name = "wakeUpOnCooldownSet",
             prefix = "handler"
     )

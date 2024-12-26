@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.*;
 public abstract class LithiumHopperCompatMixin {
     private static int transferAmount;
     @TargetHandler(
-            mixin = "me.jellysquid.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
+            mixin = "net.caffeinemc.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
             name = "lithiumExtract"
     )
     @ModifyArg(
@@ -33,7 +33,7 @@ public abstract class LithiumHopperCompatMixin {
 
 
     @TargetHandler(
-            mixin = "me.jellysquid.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
+            mixin = "net.caffeinemc.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
             name = "lithiumExtract"
     )
     @ModifyArg(
@@ -47,19 +47,19 @@ public abstract class LithiumHopperCompatMixin {
     }
 
     @TargetHandler(
-            mixin = "me.jellysquid.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
+            mixin = "net.caffeinemc.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
             name = "lithiumExtract"
     )
     @Redirect(
             method = "@MixinSquared:Handler",
-            at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/lithium/common/hopper/HopperHelper;tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/math/Direction;)Z")
+            at = @At(value = "INVOKE", target = "Lnet/caffeinemc/mods/lithium/common/hopper/HopperHelper;tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/math/Direction;)Z")
     )
     private static boolean redirectToUseMultipleItems(Inventory inventory, ItemStack stack, Direction direction) {
         return LithiumHopperHelperUtils.tryMoveMultipleItems(inventory, stack, direction, transferAmount);
     }
 
     @TargetHandler(
-            mixin = "me.jellysquid.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
+            mixin = "net.caffeinemc.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
             name = "lithiumInsert",
             prefix = "handler"
     )
@@ -77,20 +77,20 @@ public abstract class LithiumHopperCompatMixin {
     }
 
     @TargetHandler(
-            mixin = "me.jellysquid.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
+            mixin = "net.caffeinemc.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
             name = "lithiumInsert",
             prefix = "handler"
     )
     @Redirect(
             method = "@MixinSquared:Handler",
-            at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/lithium/common/hopper/HopperHelper;tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/math/Direction;)Z")
+            at = @At(value = "INVOKE", target = "Lnet/caffeinemc/mods/lithium/common/hopper/HopperHelper;tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/math/Direction;)Z")
     )
     private static boolean redirectToUseMultipleItems1(Inventory inventory, ItemStack stack, Direction direction) {
         return LithiumHopperHelperUtils.tryMoveMultipleItems(inventory, stack, direction, transferAmount);
     }
 
     @TargetHandler(
-            mixin = "me.jellysquid.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
+            mixin = "net.caffeinemc.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
             name = "lithiumInsert",
             prefix = "handler"
     )
@@ -103,7 +103,7 @@ public abstract class LithiumHopperCompatMixin {
     }
 
     @TargetHandler(
-            mixin = "me.jellysquid.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
+            mixin = "net.caffeinemc.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
             name = "lithiumInsert",
             prefix = "handler"
     )
