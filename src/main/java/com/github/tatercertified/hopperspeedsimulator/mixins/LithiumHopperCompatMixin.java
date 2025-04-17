@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.*;
 @Mixin(value = HopperBlockEntity.class, priority = 1500)
 public abstract class LithiumHopperCompatMixin {
     private static int transferAmount;
-    private static ThreadLocal<ItemStack> stack;
+    private static final ThreadLocal<ItemStack> stack = ThreadLocal.withInitial(() -> ItemStack.EMPTY);
 
     @TargetHandler(
             mixin = "net.caffeinemc.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
