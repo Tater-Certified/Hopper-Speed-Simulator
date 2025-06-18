@@ -31,9 +31,9 @@ dependencies {
     }
 
     // Lithium compat
-    modImplementation "maven.modrinth:lithium:mc1.21.5-0.16.2-fabric"
+    modImplementation "maven.modrinth:lithium:mc1.21.6-0.17.0-fabric"
     //modCompileOnlyApi "maven.modrinth:omnihopper:2.3.2+1.21"
-    include(implementation(annotationProcessor("com.bawnorton.mixinsquared:mixinsquared-fabric:0.2.0")))
+    include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.3")))
     include(implementation("com.moulberry:mixinconstraints:1.0.8"))
 }
 
