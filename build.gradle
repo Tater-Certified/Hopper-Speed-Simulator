@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.14-SNAPSHOT'
+    id 'fabric-loom' version '1.15-SNAPSHOT'
 }
 
 version = project.mod_version
@@ -31,10 +31,9 @@ dependencies {
     }
 
     // Lithium compat
-    modImplementation "maven.modrinth:lithium:mc1.21.11-0.21.0-fabric"
-    //modCompileOnlyApi "maven.modrinth:omnihopper:2.3.2+1.21"
+    modImplementation "maven.modrinth:lithium:mc1.21.11-0.21.3-fabric"
     include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.3")))
-    include(implementation("com.moulberry:mixinconstraints:1.0.8"))
+    include(implementation("com.moulberry:mixinconstraints:1.1.0"))
 }
 
 processResources {
