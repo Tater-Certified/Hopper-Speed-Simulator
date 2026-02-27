@@ -32,14 +32,14 @@ public class Command {
                             return 1;
                         })
 
-                .then(literal("ticks-per-item")
-                        .requires(perm("ticks-per-item", PERMISSION_DEFAULT_OP_LEVEL_EDIT))
-                        .then(argument("ticks-per-item", IntegerArgumentType.integer()).executes(context -> {
-                    properties.setProperty("ticks-per-transfer", String.valueOf(IntegerArgumentType.getInteger(context, "ticks-per-item")));
+                .then(literal("ticks-per-transfer")
+                        .requires(perm("ticks-per-transfer", PERMISSION_DEFAULT_OP_LEVEL_EDIT))
+                        .then(argument("ticks-per-transfer", IntegerArgumentType.integer()).executes(context -> {
+                    properties.setProperty("ticks-per-transfer", String.valueOf(IntegerArgumentType.getInteger(context, "ticks-per-transfer")));
                     try (OutputStream output = Files.newOutputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
                         properties.store(output, null);
                     } catch (IOException e) {
-                        LOGGER.warn("Failed to save ticks-per-item configuration", e);
+                        LOGGER.warn("Failed to save ticks-per-transfer configuration", e);
                     }
                     ticks = Integer.parseInt(properties.getProperty("ticks-per-transfer"));
                     context.getSource().sendFeedback(() -> Text.of("Hoppers will now transfer items every "+ ticks +" ticks"), true);

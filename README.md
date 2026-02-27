@@ -7,7 +7,7 @@ Commands:
 ```
 /hopperspeed - gives the current speed
 /hopperspeed default - defaults to the vanilla speed
-/hopperspeed ticks-per-item - sets the transfer delay to the specified number of ticks
+/hopperspeed ticks-per-transfer - sets the transfer delay to the specified number of ticks
 /hopperspeed items-per-transfer - sets the number of items per transfer attempt
 ```
 
@@ -15,7 +15,7 @@ Permission nodes:
 ```
 hopperspeed.command.use                 (default OP level: 0)
 hopperspeed.command.default             (default OP level: 2)
-hopperspeed.command.ticks-per-item      (default OP level: 2)
+hopperspeed.command.ticks-per-transfer  (default OP level: 2)
 hopperspeed.command.items-per-transfer  (default OP level: 2)
 ```
 
