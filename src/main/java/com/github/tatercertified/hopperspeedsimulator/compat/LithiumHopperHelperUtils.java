@@ -1,14 +1,14 @@
 package com.github.tatercertified.hopperspeedsimulator.compat;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
+import net.minecraft.world.Container;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Direction;
 import org.jetbrains.annotations.Nullable;
 
 public final class LithiumHopperHelperUtils {
-    public static boolean tryMoveMultipleItems(Inventory to, ItemStack stack, @Nullable Direction fromDirection, int numberOfItems) {
-        SidedInventory toSided = to instanceof SidedInventory ? (SidedInventory)to : null;
+    public static boolean tryMoveMultipleItems(Container to, ItemStack stack, @Nullable Direction fromDirection, int numberOfItems) {
+        WorldlyContainer toSided = to instanceof WorldlyContainer ? (WorldlyContainer)to : null;
         int remaining = Math.min(numberOfItems, stack.getCount());
         if (remaining <= 0) {
             return false;
@@ -16,7 +16,7 @@ public final class LithiumHopperHelperUtils {
         boolean movedAny = false;
         int slot;
         if (toSided != null && fromDirection != null) {
-            int[] slots = toSided.getAvailableSlots(fromDirection);
+            int[] slots = toSided.getSlotsForFace(fromDirection);
 
             for(slot = 0; slot < slots.length; ++slot) {
                 if (remaining <= 0 || stack.isEmpty()) {
@@ -32,7 +32,7 @@ public final class LithiumHopperHelperUtils {
                 }
             }
         } else {
-            int j = to.size();
+            int j = to.getContainerSize();
 
             for(slot = 0; slot < j; ++slot) {
                 if (remaining <= 0 || stack.isEmpty()) {
@@ -52,24 +52,24 @@ public final class LithiumHopperHelperUtils {
         return movedAny;
     }
 
-    private static boolean tryMoveMultipleItems(Inventory to, @Nullable SidedInventory toSided, ItemStack transferStack, int targetSlot, @Nullable Direction fromDirection, int numberOfItems) {
-        ItemStack toStack = to.getStack(targetSlot);
-        if (to.isValid(targetSlot, transferStack) && (toSided == null || toSided.canInsert(targetSlot, transferStack, fromDirection))) {
+    private static boolean tryMoveMultipleItems(Container to, @Nullable WorldlyContainer toSided, ItemStack transferStack, int targetSlot, @Nullable Direction fromDirection, int numberOfItems) {
+        ItemStack toStack = to.getItem(targetSlot);
+        if (to.canPlaceItem(targetSlot, transferStack) && (toSided == null || toSided.canPlaceItemThroughFace(targetSlot, transferStack, fromDirection))) {
             if (toStack.isEmpty()) {
-                int maxPerStack = Math.min(transferStack.getMaxCount(), to.getMaxCountPerStack());
+                int maxPerStack = Math.min(transferStack.getMaxStackSize(), to.getMaxStackSize());
                 int moveCount = Math.min(numberOfItems, maxPerStack);
                 moveCount = Math.min(moveCount, transferStack.getCount());
                 if (moveCount <= 0) {
                     return false;
                 }
                 ItemStack singleItem = transferStack.split(moveCount);
-                to.setStack(targetSlot, singleItem);
+                to.setItem(targetSlot, singleItem);
                 return true;
             }
 
             int toCount;
-            if (toStack.isOf(transferStack.getItem()) && toStack.getMaxCount() > (toCount = toStack.getCount()) && to.getMaxCountPerStack() > toCount && ItemStack.areItemsAndComponentsEqual(toStack, transferStack)) {
-                int maxPerStack = Math.min(toStack.getMaxCount(), to.getMaxCountPerStack());
+            if (toStack.is(transferStack.getItem()) && toStack.getMaxStackSize() > (toCount = toStack.getCount()) && to.getMaxStackSize() > toCount && ItemStack.isSameItemSameComponents(toStack, transferStack)) {
+                int maxPerStack = Math.min(toStack.getMaxStackSize(), to.getMaxStackSize());
                 int space = maxPerStack - toCount;
                 if (space <= 0) {
                     return false;
@@ -79,8 +79,8 @@ public final class LithiumHopperHelperUtils {
                 if (moveCount <= 0) {
                     return false;
                 }
-                transferStack.decrement(moveCount);
-                toStack.increment(moveCount);
+                transferStack.shrink(moveCount);
+                toStack.grow(moveCount);
                 return true;
             }
         }

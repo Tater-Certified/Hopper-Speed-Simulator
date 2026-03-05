@@ -6,10 +6,10 @@ import com.github.tatercertified.hopperspeedsimulator.compat.LithiumHopperHelper
 import com.moulberry.mixinconstraints.annotations.IfModAbsent;
 import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import net.caffeinemc.mods.lithium.common.hopper.LithiumStackList;
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 
@@ -26,7 +26,7 @@ public abstract class LithiumHopperCompatMixin {
     )
     @ModifyArg(
             method = "@MixinSquared:Handler",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;increment(I)V"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;grow(I)V"),
             index = 0
     )
     private static int injectedItem(int x) {
@@ -53,7 +53,7 @@ public abstract class LithiumHopperCompatMixin {
     )
     @ModifyArg(
             method = "@MixinSquared:Handler",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;removeStack(II)Lnet/minecraft/item/ItemStack;"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Container;removeItem(II)Lnet/minecraft/world/item/ItemStack;"),
             index = 1
     )
     private static int injectedItem1(int x) {
@@ -68,9 +68,9 @@ public abstract class LithiumHopperCompatMixin {
     )
     @Redirect(
             method = "@MixinSquared:Handler",
-            at = @At(value = "INVOKE", target = "Lnet/caffeinemc/mods/lithium/common/hopper/HopperHelper;tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/math/Direction;)Z")
+            at = @At(value = "INVOKE", target = "Lnet/caffeinemc/mods/lithium/common/hopper/HopperHelper;tryMoveSingleItem(Lnet/minecraft/world/Container;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Z")
     )
-    private static boolean redirectToUseMultipleItems(Inventory inventory, ItemStack stack, Direction direction) {
+    private static boolean redirectToUseMultipleItems(Container inventory, ItemStack stack, Direction direction) {
         return LithiumHopperHelperUtils.tryMoveMultipleItems(inventory, stack, direction, transferAmount);
     }
 
@@ -81,7 +81,7 @@ public abstract class LithiumHopperCompatMixin {
     )
     @Redirect(
             method = "@MixinSquared:Handler",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isEmpty()Z")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isEmpty()Z")
     )
     private static boolean redirectIsEmpty(ItemStack stack) {
         if (!stack.isEmpty()) {
@@ -99,9 +99,9 @@ public abstract class LithiumHopperCompatMixin {
     )
     @Redirect(
             method = "@MixinSquared:Handler",
-            at = @At(value = "INVOKE", target = "Lnet/caffeinemc/mods/lithium/common/hopper/HopperHelper;tryMoveSingleItem(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/math/Direction;)Z")
+            at = @At(value = "INVOKE", target = "Lnet/caffeinemc/mods/lithium/common/hopper/HopperHelper;tryMoveSingleItem(Lnet/minecraft/world/Container;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/Direction;)Z")
     )
-    private static boolean redirectToUseMultipleItems1(Inventory inventory, ItemStack stack, Direction direction) {
+    private static boolean redirectToUseMultipleItems1(Container inventory, ItemStack stack, Direction direction) {
         return LithiumHopperHelperUtils.tryMoveMultipleItems(inventory, stack, direction, transferAmount);
     }
 

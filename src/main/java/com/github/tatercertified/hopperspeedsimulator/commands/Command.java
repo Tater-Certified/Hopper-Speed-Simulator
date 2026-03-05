@@ -4,9 +4,9 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,8 +15,8 @@ import java.nio.file.Files;
 import java.util.function.Predicate;
 
 import static com.github.tatercertified.hopperspeedsimulator.Main.*;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 
 public class Command {
@@ -25,10 +25,10 @@ public class Command {
     private static final int PERMISSION_DEFAULT_OP_LEVEL_EDIT = 2;
 
     public static void registerCommand() throws FileNotFoundException {
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated, environment) -> dispatcher.register(CommandManager.literal("hopperspeed")
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated, environment) -> dispatcher.register(Commands.literal("hopperspeed")
                         .requires(perm("use", PERMISSION_DEFAULT_OP_LEVEL_USE))
                         .executes(context -> {
-                            context.getSource().sendFeedback(() -> Text.of("Current speed is "+ ticks +" ticks, with "+ items +" items per transfer"), true);
+                            context.getSource().sendSuccess(() -> Component.nullToEmpty("Current speed is "+ ticks +" ticks, with "+ items +" items per transfer"), true);
                             return 1;
                         })
 
@@ -42,7 +42,7 @@ public class Command {
                         LOGGER.warn("Failed to save ticks-per-transfer configuration", e);
                     }
                     ticks = Integer.parseInt(properties.getProperty("ticks-per-transfer"));
-                    context.getSource().sendFeedback(() -> Text.of("Hoppers will now transfer items every "+ ticks +" ticks"), true);
+                    context.getSource().sendSuccess(() -> Component.nullToEmpty("Hoppers will now transfer items every "+ ticks +" ticks"), true);
                     return 1;
                 })))
 
@@ -58,7 +58,7 @@ public class Command {
                     }
                     ticks = Integer.parseInt(properties.getProperty("ticks-per-transfer"));
                     items = Integer.parseInt(properties.getProperty("items-per-transfer"));
-                    context.getSource().sendFeedback(() -> Text.of("Hoppers will now transfer normally at 1 item per 8 ticks"), true);
+                    context.getSource().sendSuccess(() -> Component.nullToEmpty("Hoppers will now transfer normally at 1 item per 8 ticks"), true);
                     return 1;
                 }))
 
@@ -72,13 +72,13 @@ public class Command {
                                 LOGGER.warn("Failed to save items-per-transfer configuration", e);
                             }
                             items = Integer.parseInt(properties.getProperty("items-per-transfer"));
-                            context.getSource().sendFeedback(() -> Text.of("Hoppers will now move " + items + " items per transfer"), true);
+                            context.getSource().sendSuccess(() -> Component.nullToEmpty("Hoppers will now move " + items + " items per transfer"), true);
                     return 1;
                 }
                 )))));
     }
 
-    private static Predicate<ServerCommandSource> perm(String nodeSuffix, int defaultOpLevel) {
+    private static Predicate<CommandSourceStack> perm(String nodeSuffix, int defaultOpLevel) {
         return Permissions.require(PERMISSION_PREFIX + nodeSuffix, defaultOpLevel);
     }
 }
