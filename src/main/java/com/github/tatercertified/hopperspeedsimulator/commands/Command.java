@@ -7,6 +7,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.permissions.PermissionLevel;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,19 +22,17 @@ import static net.minecraft.commands.Commands.literal;
 
 public class Command {
     private static final String PERMISSION_PREFIX = "hopperspeed.command.";
-    private static final int PERMISSION_DEFAULT_OP_LEVEL_USE = 0;
-    private static final int PERMISSION_DEFAULT_OP_LEVEL_EDIT = 2;
 
     public static void registerCommand() throws FileNotFoundException {
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated, environment) -> dispatcher.register(Commands.literal("hopperspeed")
-                        .requires(perm("use", PERMISSION_DEFAULT_OP_LEVEL_USE))
+                        .requires(perm("use", PermissionLevel.ALL))
                         .executes(context -> {
                             context.getSource().sendSuccess(() -> Component.nullToEmpty("Current speed is "+ ticks +" ticks, with "+ items +" items per transfer"), true);
                             return 1;
                         })
 
                 .then(literal("ticks-per-transfer")
-                        .requires(perm("ticks-per-transfer", PERMISSION_DEFAULT_OP_LEVEL_EDIT))
+                        .requires(perm("ticks-per-transfer", PermissionLevel.GAMEMASTERS))
                         .then(argument("ticks-per-transfer", IntegerArgumentType.integer()).executes(context -> {
                     properties.setProperty("ticks-per-transfer", String.valueOf(IntegerArgumentType.getInteger(context, "ticks-per-transfer")));
                     try (OutputStream output = Files.newOutputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
@@ -47,7 +46,7 @@ public class Command {
                 })))
 
                 .then(literal("default")
-                        .requires(perm("default", PERMISSION_DEFAULT_OP_LEVEL_EDIT))
+                        .requires(perm("default", PermissionLevel.GAMEMASTERS))
                         .executes(context -> {
                     properties.setProperty("ticks-per-transfer", "8");
                     properties.setProperty("items-per-transfer", "1");
@@ -63,7 +62,7 @@ public class Command {
                 }))
 
                 .then(literal("items-per-transfer")
-                        .requires(perm("items-per-transfer", PERMISSION_DEFAULT_OP_LEVEL_EDIT))
+                        .requires(perm("items-per-transfer", PermissionLevel.GAMEMASTERS))
                         .then(argument("items-per-transfer", IntegerArgumentType.integer()).executes(context -> {
                     properties.setProperty("items-per-transfer", String.valueOf(IntegerArgumentType.getInteger(context, "items-per-transfer")));
                             try (OutputStream output = Files.newOutputStream(FabricLoader.getInstance().getConfigDir().resolve("hopperspeedsim.properties"))) {
@@ -78,7 +77,7 @@ public class Command {
                 )))));
     }
 
-    private static Predicate<CommandSourceStack> perm(String nodeSuffix, int defaultOpLevel) {
+    private static Predicate<CommandSourceStack> perm(String nodeSuffix, PermissionLevel defaultOpLevel) {
         return Permissions.require(PERMISSION_PREFIX + nodeSuffix, defaultOpLevel);
     }
 }

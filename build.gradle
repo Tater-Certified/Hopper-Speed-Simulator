@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.15-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
 }
 
 version = project.mod_version
@@ -24,19 +24,18 @@ Set<String> apiModules = [
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     apiModules.forEach {
-        modImplementation(fabricApi.module(it, project.fabric_version))
+        implementation(fabricApi.module(it, project.fabric_version))
     }
 
     // Lithium compat
-    modImplementation "maven.modrinth:lithium:mc1.21.11-0.21.3-fabric"
+    implementation "maven.modrinth:lithium:mc26.1.1-0.23.0-fabric"
     include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.7-beta.1")))
     include(implementation("com.moulberry:mixinconstraints:1.1.0"))
 
     // Command permissions
-    include(modImplementation "me.lucko:fabric-permissions-api:0.3.1")
+    include(implementation "me.lucko:fabric-permissions-api:0.7.0")
 }
 
 processResources {
@@ -48,7 +47,7 @@ processResources {
     }
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = 25
 tasks.withType(JavaCompile).configureEach {
     // ensure that the encoding is set to UTF-8, no matter what the system default is
     // this fixes some edge cases with special characters not displaying correctly

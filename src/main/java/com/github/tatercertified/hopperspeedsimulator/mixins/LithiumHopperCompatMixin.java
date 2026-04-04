@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.*;
 @Mixin(value = HopperBlockEntity.class, priority = 1500)
 public abstract class LithiumHopperCompatMixin {
     private static int transferAmount;
-    private static final ThreadLocal<ItemStack> stack = ThreadLocal.withInitial(() -> ItemStack.EMPTY);
+    private static final ThreadLocal<ItemStack> STACK = ThreadLocal.withInitial(() -> ItemStack.EMPTY);
 
     @TargetHandler(
             mixin = "net.caffeinemc.mods.lithium.mixin.block.hopper.HopperBlockEntityMixin",
@@ -43,7 +43,7 @@ public abstract class LithiumHopperCompatMixin {
     )
     private static Object captureItemStackLocal(LithiumStackList instance, int i) {
         ItemStack stack1 = instance.get(i);
-        stack.set(stack1);
+        STACK.set(stack1);
         return stack1;
     }
 
@@ -57,8 +57,8 @@ public abstract class LithiumHopperCompatMixin {
             index = 1
     )
     private static int injectedItem1(int x) {
-        transferAmount = Math.min(stack.get().getCount(), Main.items);
-        stack.remove();
+        transferAmount = Math.min(STACK.get().getCount(), Main.items);
+        STACK.remove();
         return transferAmount;
     }
 
