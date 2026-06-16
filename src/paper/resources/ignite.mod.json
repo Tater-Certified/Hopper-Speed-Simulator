@@ -1,0 +1,8 @@
+{
+  "id": "${mod_id}",
+  "version": "${version}",
+  "mixins": [
+    "hopperspeedsim.mixins.json"
+  ],
+  "wideners": []
+}

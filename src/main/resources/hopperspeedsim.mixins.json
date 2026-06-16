@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "com.github.tatercertified.hopperspeedsimulator.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "CommandRegistrationMixin",
+    "HopperMixin",
+    "LithiumHopperCompatMixin",
+    "LithiumSleepingCompatMixin",
+    "ModInitMixin"
+  ],
+  "plugin": "com.github.tatercertified.hopperspeedsimulator.MixinPluginConfig",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

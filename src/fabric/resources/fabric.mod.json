@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "${description}",
+  "authors": [
+    "${author}"
+  ],
+  "contact": {
+    "repo": "${source_url}"
+  },
+  "license": "${license}",
+  "environment": "*",
+  "icon": "icon.png",
+  "entrypoints": {
+    "client": [],
+    "server": []
+  },
+  "mixins": [
+    "hopperspeedsim.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": ">=${min_minecraft_version}"
+  }
+}

@@ -1,9 +1,13 @@
+/**
+ * Copyright (c) 2026 QPCrummer
+ * This project is Licensed under <a href="https://github.com/Tater-Certified/Hopper-Speed-Simulator/blob/main/LICENSE">MIT</a>
+ */
 package com.github.tatercertified.hopperspeedsimulator.compat;
 
+import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.Direction;
 import org.jetbrains.annotations.Nullable;
 
 public final class LithiumHopperHelperUtils {
