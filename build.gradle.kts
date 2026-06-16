@@ -158,6 +158,7 @@ tasks.shadowJar {
         forge.output,
         neoforge.output,
         sponge.output,
+        paper.output,
     )
 
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
