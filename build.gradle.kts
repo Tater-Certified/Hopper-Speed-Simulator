@@ -131,7 +131,7 @@ dependencies {
     mainCompileOnly(libs.mixin)
     mainCompileOnly(libs.mixinextras)
     mainCompileOnly("maven.modrinth:lithium:mc26.2-0.25.0-fabric")
-    implementation("com.github.Tater-Certified:MixinConstraints:95198110a3")
+    implementation("com.github.Tater-Certified:MixinConstraints:217bb39900")
     implementation("com.github.bawnorton.mixinsquared:mixinsquared-common:0.3.7-beta.2")
 }
 
@@ -152,6 +152,9 @@ tasks.withType<ProcessResources> {
 
 tasks.shadowJar {
     archiveClassifier.set("")
+
+    enableAutoRelocation = true
+    relocationPrefix = "com.github.tatercertified.hopperspeedsimulator.shaded"
 
     from(
         fabric.output,

@@ -7,7 +7,7 @@ package com.github.tatercertified.hopperspeedsimulator.mixin;
 import com.bawnorton.mixinsquared.TargetHandler;
 import com.github.tatercertified.hopperspeedsimulator.Main;
 import com.github.tatercertified.hopperspeedsimulator.compat.LithiumHopperHelperUtils;
-import com.moulberry.mixinconstraints.annotations.IfModLoaded;
+import com.github.tatercertified.mixinconstraints.annotations.IfModLoaded;
 import net.caffeinemc.mods.lithium.common.hopper.LithiumStackList;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;

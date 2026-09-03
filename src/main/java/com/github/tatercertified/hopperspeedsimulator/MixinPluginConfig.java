@@ -5,8 +5,8 @@
 package com.github.tatercertified.hopperspeedsimulator;
 
 import com.bawnorton.mixinsquared.MixinSquaredBootstrap;
-import com.moulberry.mixinconstraints.MixinConstraints;
-import com.moulberry.mixinconstraints.mixin.MixinConstraintsBootstrap;
+import com.github.tatercertified.mixinconstraints.MixinConstraints;
+import com.github.tatercertified.mixinconstraints.mixin.MixinConstraintsBootstrap;
 import java.util.List;
 import java.util.Set;
 import org.objectweb.asm.tree.ClassNode;

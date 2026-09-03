@@ -6,7 +6,7 @@ package com.github.tatercertified.hopperspeedsimulator.mixin;
 
 import com.bawnorton.mixinsquared.TargetHandler;
 import com.github.tatercertified.hopperspeedsimulator.Main;
-import com.moulberry.mixinconstraints.annotations.IfModLoaded;
+import com.github.tatercertified.mixinconstraints.annotations.IfModLoaded;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
