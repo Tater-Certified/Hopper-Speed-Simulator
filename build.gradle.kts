@@ -185,6 +185,7 @@ tasks.shadowJar {
     from(listOf("README.md", "LICENSE")) {
         into("META-INF")
     }
+    mergeServiceFiles()
 }
 
 tasks.jar {

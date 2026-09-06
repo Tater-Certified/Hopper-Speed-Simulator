@@ -69,7 +69,7 @@ public abstract class HopperMixin {
      * @reason If you decide to use Hopper Slow Simulator, we need to make sure it works
      */
     @Overwrite
-    private boolean isOnCustomCooldown() {
+    public boolean isOnCustomCooldown() {
         return this.cooldownTime > ticks;
     }
 }
