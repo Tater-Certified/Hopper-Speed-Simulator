@@ -38,24 +38,21 @@ public abstract class HopperMixin {
         return Main.items;
     }
 
-    @ModifyArg(method = "ejectItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;removeItem(II)Lnet/minecraft/world/item/ItemStack;"), index = 1)
-    private static int hopperspeedsim$inject3(int x) {
-        return Main.items;
-    }
-
     @Inject(method = "ejectItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;getItem(I)Lnet/minecraft/world/item/ItemStack;"), cancellable = true)
     private static void hopperspeedsim$preventDuplication(Level level, BlockPos blockPos, HopperBlockEntity self, CallbackInfoReturnable<Boolean> cir, @Local(name = "slot") int slot, @Local(name = "container") Container container, @Local(name = "direction") Direction direction) {
-        if (Main.items > 1) {
-            ItemStack toMove = self.getItem(slot).split(Main.items);
-            ItemStack leftovers = addItem(self, container, toMove, direction);
+        if (Main.items <= 1) return;
 
-            if (!leftovers.isEmpty()) {
-                self.getItem(slot).grow(leftovers.getCount());
-                cir.setReturnValue(false);
-            } else {
-                container.setChanged();
-                cir.setReturnValue(true);
-            }
+        ItemStack source = self.getItem(slot);
+
+        if (source.isEmpty()) return;
+
+        int originalCount = source.getCount();
+        ItemStack leftovers = addItem(self, container, source.split(Main.items), direction);
+        source.grow(leftovers.getCount());
+
+        if (source.getCount() < originalCount) {
+            container.setChanged();
+            cir.setReturnValue(true);
         }
     }
 
